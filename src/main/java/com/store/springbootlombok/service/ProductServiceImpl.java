@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @RequiredArgsConstructor
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
@@ -20,11 +20,31 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product saveProduct(Product product) {
-        return  productRepository.save(product);
+        return productRepository.save(product);
     }
 
-//    @Override
-//    public Product getProductById(Long id) {
-//        return productRepository.findById(id).orElse(null);
+    @Override
+    public Product getProductById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));}
+
+    @Override
+    public Product updateProduct(Long id,Product product) {
+        return productRepository.findById(id).map(existingProduct -> {
+            existingProduct.setName(product.getName());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setQuantity(product.getQuantity());
+            return productRepository.save(existingProduct);
+        })
+        .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
     }
 
+    @Override
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        productRepository.delete(product);
+    }
+
+
+}

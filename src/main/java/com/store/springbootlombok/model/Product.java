@@ -4,13 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor   //provides the no args constructor to be used by jackson to create the Object
 @AllArgsConstructor  //Provides the constructor with arguments for all fields
-@Data            //Generates getters,setters,toString etc
+@Getter
+@Setter     //Generates getters,setters,toString etc
 @Entity
 public class Product {
 
