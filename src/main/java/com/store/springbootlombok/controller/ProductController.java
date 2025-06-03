@@ -25,4 +25,7 @@ public class ProductController {
     public Product saveProduct(@RequestBody Product product) {
         return productService.saveProduct(product);
     }
+
+//    @GetMapping("/get/products/byId")
+//    public Product getProductById(@RequestParam("id") Long id) {return productService.getProductById(id);}
 }
